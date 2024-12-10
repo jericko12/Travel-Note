@@ -108,7 +108,7 @@ if (isset($_GET['id'])) {
 
             <?php if($note['image_path']): ?>
                 <div class="current-image">
-                    <img src="uploads/<?php echo $note['image_path']; ?>" alt="Current Image">
+                    <img src="Image/<?php echo $note['image_path']; ?>" alt="Current Image">
                     <p>Current Image</p>
                 </div>
             <?php endif; ?>

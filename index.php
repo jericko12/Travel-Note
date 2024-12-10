@@ -95,8 +95,9 @@ $notes = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 </div>
             </div>
         </div>
+    </div>
 
-        <script>
+    <script>
         function showPopup(button) {
             const noteCard = button.parentElement;
             const title = noteCard.querySelector('h3').textContent;
@@ -126,9 +127,6 @@ $notes = $stmt->fetchAll(PDO::FETCH_ASSOC);
             document.getElementById('popup').style.display = 'none';
         }
 
-        // Close popup when clicking outside
-        document.getElementById('overlay').addEventListener('click', closePopup);
-
         let deleteForm = null;
 
         function showDeleteConfirm(event, form) {
@@ -148,7 +146,6 @@ $notes = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 deleteForm.submit();
             }
         });
-        </script>
-    </div>
+    </script>
 </body>
 </html> 

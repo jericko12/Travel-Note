@@ -7,6 +7,7 @@
     --white: #fff;
     --shadow: 0 2px 10px rgba(0,0,0,0.1);
     --shadow-hover: 0 5px 20px rgba(0,0,0,0.15);
+    --background: #f5f7fa;
 }
 
 * {
@@ -16,50 +17,55 @@
 }
 
 body {
-    font-family: 'Segoe UI', Arial, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     line-height: 1.6;
-    background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+    background: var(--background);
     min-height: 100vh;
+    margin: 0;
+    padding: 0;
 }
 
 .container {
-    max-width: 1200px;
+    max-width: 480px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 0;
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    background: var(--white);
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow-x: hidden;
 }
 
 h1 {
-    text-align: center;
-    color: var(--primary-color);
-    margin-bottom: 30px;
-    font-size: 2.5em;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-    width: 100%;
+    font-size: 1.8em;
+    color: var(--text-dark);
+    margin: 15px 0;
+    font-weight: 600;
 }
 
 .add-note-btn {
     position: fixed;
-    bottom: 30px;
-    right: 30px;
+    bottom: 20px;
+    right: 20px;
     z-index: 900;
 }
 
 .floating-btn {
-    width: 65px;
-    height: 65px;
+    width: 56px;
+    height: 56px;
     background: var(--accent-color);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--white);
+    color: white;
     text-decoration: none;
-    box-shadow: var(--shadow);
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease;
+}
+
+.floating-btn:active {
+    transform: scale(0.95);
 }
 
 .floating-btn i {
@@ -73,17 +79,12 @@ h1 {
 }
 
 .btn {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-    min-width: 100px;
-    text-align: center;
-    margin: 0 5px;
+    width: 100%;
+    padding: 12px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 500;
+    margin: 10px 0;
 }
 
 .btn-secondary {
@@ -92,41 +93,30 @@ h1 {
 }
 
 .notes-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 25px;
-    width: 100%;
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 20px;
-    justify-content: center;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
 .note-card {
-    width: 100%;
-    max-width: 350px;
-    margin: 0 auto;
     background: var(--white);
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: var(--shadow);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    position: relative;
-    border: 1px solid rgba(0,0,0,0.05);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     overflow: hidden;
+    position: relative;
 }
 
-.note-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
+.note-card:active {
+    transform: scale(0.98);
+}
+
+.note-card img {
     width: 100%;
-    height: 4px;
-    background: var(--primary-color);
-    transform: scaleX(0);
-    transition: transform 0.3s ease;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 15px 15px 0 0;
+    margin-bottom: 0;
 }
 
 .note-card:hover {
@@ -138,23 +128,10 @@ h1 {
     transform: scaleX(1);
 }
 
-.note-card img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 10px;
-    margin-bottom: 15px;
-    transition: transform 0.3s ease;
-}
-
-.note-card:hover img {
-    transform: scale(1.05);
-}
-
 .note-card h3 {
-    color: #333;
-    margin-bottom: 10px;
-    font-size: 1.4em;
+    font-size: 1.2em;
+    margin: 0 0 10px 0;
+    color: var(--text-dark);
 }
 
 .note-card .preview {
@@ -186,9 +163,10 @@ h1 {
 .form-group input[type="text"],
 .form-group textarea {
     width: 100%;
-    padding: 8px;
+    padding: 12px;
     border: 1px solid #ddd;
-    border-radius: 4px;
+    border-radius: 12px;
+    font-size: 16px;
 }
 
 .form-group textarea {
@@ -219,22 +197,12 @@ h1 {
 }
 
 .popup {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.2);
-    z-index: 1000;
-    width: 90%;
-    max-width: 600px;
-    max-height: 90vh;
-    overflow-y: auto;
-    text-align: left;
-    overflow-x: hidden;
+    width: 100%;
+    height: 100vh;
+    max-width: none;
+    margin: 0;
+    border-radius: 0;
+    animation: slideUp 0.3s ease-out;
 }
 
 .popup-title {
@@ -324,18 +292,10 @@ h1 {
 }
 
 .delete-confirm-popup {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: white;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.2);
-    text-align: center;
     width: 90%;
-    max-width: 400px;
-    animation: slideIn 0.3s ease-out;
+    max-width: 320px;
+    padding: 20px;
+    border-radius: 20px;
 }
 
 .delete-confirm-popup h3 {
@@ -525,37 +485,43 @@ h1 {
 
 .user-nav {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
-    gap: 15px;
-    margin-bottom: 20px;
-    width: 100%;
-    max-width: 1000px;
+    padding: 15px 20px;
+    background: var(--primary-color);
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.user-nav h1 {
+    font-size: 1.4em;
+    margin: 0;
+    color: white;
+    font-weight: 500;
+}
+
+.welcome-section {
+    padding: 15px 20px;
+    background: var(--white);
+    border-bottom: 1px solid rgba(0,0,0,0.1);
 }
 
 .username {
-    color: #666;
+    color: var(--text-dark);
+    font-size: 0.9em;
+    margin: 0;
 }
 
 .logout-btn {
-    color: #666;
-    font-size: 20px;
-    text-decoration: none;
-    padding: 8px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-    background: none;
-    border: none;
-    cursor: pointer;
+    color: white;
+    opacity: 0.9;
 }
 
 .logout-btn:hover {
-    color: #dc3545;
-    transform: rotate(360deg);
-    background-color: rgba(220, 53, 69, 0.1);
+    opacity: 1;
+    background-color: rgba(255,255,255,0.1);
 }
 
 .popup-image {
@@ -596,12 +562,10 @@ body.auth-page {
 
 @keyframes slideUp {
     from {
-        opacity: 0;
-        transform: translateY(20px);
+        transform: translate(-50%, 100%);
     }
     to {
-        opacity: 1;
-        transform: translateY(0);
+        transform: translate(-50%, -50%);
     }
 }
 
@@ -613,11 +577,9 @@ body.auth-page {
 
 /* Add these new styles for the flip animation */
 .auth-container {
-    perspective: 1000px;
-    position: relative;
-    width: 350px;
-    height: 500px;
-    margin: 20px auto;
+    width: 100%;
+    max-width: 380px;
+    height: 480px;
 }
 
 .auth-flipper {
@@ -635,17 +597,8 @@ body.auth-page {
 
 .auth-form.login,
 .auth-form.signup {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    backface-visibility: hidden;
+    border-radius: 24px;
     padding: 25px;
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
 }
 
 .auth-form.signup {
@@ -709,5 +662,219 @@ body.auth-page {
     flex-direction: column;
     justify-content: center;
     gap: 10px;
+}
+
+.current-image {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.current-image img {
+    max-width: 300px;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.current-image p {
+    margin-top: 10px;
+    color: #666;
+    font-size: 0.9em;
+}
+
+/* Mobile-friendly input styles */
+input, textarea, button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+/* Add pull-to-refresh style indicator */
+.notes-grid::before {
+    content: '';
+    display: block;
+    height: 20px;
+    margin-bottom: 10px;
+    background: linear-gradient(var(--background) 0%, transparent 100%);
+}
+
+/* Add mobile-friendly touch feedback */
+.note-card:active::before {
+    opacity: 0.5;
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+/* Add these CSS variables for theme colors */
+:root[data-theme="light"] {
+    --primary-color: #2196F3;
+    --primary-dark: #1976D2;
+    --accent-color: #FF4081;
+    --text-dark: #333;
+    --text-light: #666;
+    --white: #fff;
+    --background: #f5f7fa;
+    --card-bg: #fff;
+    --shadow: 0 2px 10px rgba(0,0,0,0.1);
+    --shadow-hover: 0 5px 20px rgba(0,0,0,0.15);
+    --border-color: rgba(0,0,0,0.1);
+    --popup-bg: #fff;
+    --input-bg: #fff;
+}
+
+:root[data-theme="dark"] {
+    --primary-color: #90CAF9;
+    --primary-dark: #64B5F6;
+    --accent-color: #FF80AB;
+    --text-dark: #E0E0E0;
+    --text-light: #BDBDBD;
+    --white: #1E1E1E;
+    --background: #121212;
+    --card-bg: #2D2D2D;
+    --shadow: 0 2px 10px rgba(0,0,0,0.3);
+    --shadow-hover: 0 5px 20px rgba(0,0,0,0.4);
+    --border-color: rgba(255,255,255,0.1);
+    --popup-bg: #2D2D2D;
+    --input-bg: #333;
+}
+
+/* Add theme toggle button styles */
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.theme-toggle {
+    background: none;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+    background-color: rgba(255,255,255,0.1);
+}
+
+/* Update existing styles to use theme variables */
+body {
+    background: var(--background);
+    color: var(--text-dark);
+}
+
+.container {
+    background: var(--white);
+}
+
+.note-card {
+    background: var(--card-bg);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+}
+
+.note-card h3 {
+    color: var(--text-dark);
+}
+
+.note-card .preview,
+.note-card .date {
+    color: var(--text-light);
+}
+
+.popup {
+    background: var(--card-bg);
+    color: var(--text-dark);
+}
+
+.popup-title {
+    color: var(--text-dark);
+    border-bottom-color: var(--border-color);
+}
+
+.popup-content {
+    color: var(--text-light);
+}
+
+.popup-close {
+    color: var(--text-light);
+}
+
+.form-group input[type="text"],
+.form-group textarea {
+    background: var(--card-bg);
+    color: var(--text-dark);
+    border-color: var(--border-color);
+}
+
+.form-group input[type="text"]:focus,
+.form-group textarea:focus {
+    border-color: var(--primary-color);
+}
+
+/* Add transition for smooth theme switching */
+* {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Add these specific dark mode styles */
+[data-theme="dark"] body {
+    background-color: var(--background);
+    color: var(--text-dark);
+}
+
+[data-theme="dark"] .container {
+    background-color: var(--white);
+}
+
+[data-theme="dark"] .note-card {
+    background-color: var(--card-bg);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .note-card h3 {
+    color: var(--text-dark);
+}
+
+[data-theme="dark"] .note-card .preview,
+[data-theme="dark"] .note-card .date {
+    color: var(--text-light);
+}
+
+[data-theme="dark"] .popup {
+    background-color: var(--popup-bg);
+}
+
+[data-theme="dark"] .form-group input,
+[data-theme="dark"] .form-group textarea {
+    background-color: var(--input-bg);
+    color: var(--text-dark);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .delete-confirm-popup {
+    background-color: var(--popup-bg);
+    color: var(--text-dark);
+}
+
+[data-theme="dark"] .theme-toggle {
+    color: var(--text-dark);
+}
+
+[data-theme="dark"] .user-nav {
+    background-color: var(--card-bg);
+    border-color: var(--border-color);
+}
+
+/* Add smooth transitions */
+body, .container, .note-card, .popup, input, textarea, .delete-confirm-popup {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
  
